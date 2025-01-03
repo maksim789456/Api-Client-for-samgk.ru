@@ -1,7 +1,9 @@
 # Библиотека для работы с API samgk.ru
 
 Загрузить https://github.com/TheCrazyWolf/Api-Client-for-samgk.ru/releases
-Документация: clientsamgk-docs.vercel.app
+
+Документация: https://clientsamgk-docs.vercel.app
+
 ### Зависимости
 1. Newtonsoft.Json.dll
 2. RestSharp.dll
