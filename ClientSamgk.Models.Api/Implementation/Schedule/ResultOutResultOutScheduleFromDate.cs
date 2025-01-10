@@ -1,5 +1,5 @@
-using ClientSamgk.Models.Api.Enums;
 using ClientSamgk.Models.Api.Interfaces.Schedule;
+using ClientSamgk.Models.Enums.Schedule;
 
 namespace ClientSamgk.Models.Api.Implementation.Schedule;
 

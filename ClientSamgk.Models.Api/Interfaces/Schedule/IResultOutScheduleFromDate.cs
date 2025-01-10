@@ -1,4 +1,4 @@
-using ClientSamgk.Models.Api.Enums;
+using ClientSamgk.Models.Enums.Schedule;
 
 namespace ClientSamgk.Models.Api.Interfaces.Schedule;
 

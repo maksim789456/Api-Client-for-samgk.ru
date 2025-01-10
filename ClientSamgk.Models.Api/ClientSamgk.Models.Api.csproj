@@ -8,4 +8,8 @@
         <Authors>kulagin</Authors>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\ClientSamgk.Models.Enums\ClientSamgk.Models.Enums.csproj" />
+    </ItemGroup>
+
 </Project>

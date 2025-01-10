@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ClientSamgk.Models.Api.Enums;
+namespace ClientSamgk.Models.Enums.Schedule;
 
 public enum ScheduleCallType
 {

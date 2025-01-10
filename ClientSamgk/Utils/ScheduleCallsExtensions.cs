@@ -1,6 +1,6 @@
-﻿using ClientSamgk.Models.Api.Enums;
-using ClientSamgk.Models.Api.Implementation.Schedule;
+﻿using ClientSamgk.Models.Api.Implementation.Schedule;
 using ClientSamgk.Models.Api.Mfc.Shedules;
+using ClientSamgk.Models.Enums.Schedule;
 
 namespace ClientSamgk.Utils;
 
