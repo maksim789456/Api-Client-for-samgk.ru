@@ -1,6 +1,6 @@
 using ClientSamgk.Common;
 using ClientSamgk.Interfaces.Client;
-using ClientSamgkOutputResponse.Interfaces.Identity;
+using ClientSamgk.Models.Api.Interfaces.Identity;
 
 namespace ClientSamgk.Controllers;
 

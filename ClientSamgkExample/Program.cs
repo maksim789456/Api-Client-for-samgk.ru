@@ -2,7 +2,7 @@
 using ClientSamgk;
 using ClientSamgk.Interfaces.Client;
 using ClientSamgk.Models;
-using ClientSamgkOutputResponse.Enums;
+using ClientSamgk.Models.Api.Enums;
 
 IClientSamgkApi api = new ClientSamgkApi();
 

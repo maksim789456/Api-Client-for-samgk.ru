@@ -1,4 +1,4 @@
-using ClientSamgkOutputResponse.Interfaces.Cabs;
+using ClientSamgk.Models.Api.Interfaces.Cabs;
 
 namespace ClientSamgk.Interfaces.Client;
 

@@ -1,8 +1,8 @@
-﻿using ClientSamgkOutputResponse.Implementation.Education;
-using ClientSamgkOutputResponse.Implementation.Identity;
-using ClientSamgkOutputResponse.Implementation.Schedule;
-using ClientSamgkOutputResponse.Interfaces.Identity;
-using ClientSamgkOutputResponse.Interfaces.Schedule;
+﻿using ClientSamgk.Models.Api.Implementation.Education;
+using ClientSamgk.Models.Api.Implementation.Identity;
+using ClientSamgk.Models.Api.Implementation.Schedule;
+using ClientSamgk.Models.Api.Interfaces.Identity;
+using ClientSamgk.Models.Api.Interfaces.Schedule;
 
 namespace ClientSamgk.Utils;
 

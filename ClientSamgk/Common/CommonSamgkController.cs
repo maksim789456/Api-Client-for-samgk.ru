@@ -1,13 +1,13 @@
 using ClientSamgk.Models;
+using ClientSamgk.Models.Api.Implementation.Cabs;
+using ClientSamgk.Models.Api.Implementation.Groups;
+using ClientSamgk.Models.Api.Implementation.Identity;
+using ClientSamgk.Models.Api.Interfaces.Cabs;
+using ClientSamgk.Models.Api.Interfaces.Groups;
+using ClientSamgk.Models.Api.Interfaces.Identity;
 using ClientSamgk.Models.Api.Mfc.Groups;
 using ClientSamgk.Models.Api.Mfc.Teachers;
 using ClientSamgk.Utils;
-using ClientSamgkOutputResponse.Implementation.Cabs;
-using ClientSamgkOutputResponse.Implementation.Groups;
-using ClientSamgkOutputResponse.Implementation.Identity;
-using ClientSamgkOutputResponse.Interfaces.Cabs;
-using ClientSamgkOutputResponse.Interfaces.Groups;
-using ClientSamgkOutputResponse.Interfaces.Identity;
 using Newtonsoft.Json;
 using RestSharp;
 

@@ -1,4 +1,4 @@
-using ClientSamgkOutputResponse.Interfaces.Identity;
+using ClientSamgk.Models.Api.Interfaces.Identity;
 
 namespace ClientSamgk.Interfaces.Client;
 

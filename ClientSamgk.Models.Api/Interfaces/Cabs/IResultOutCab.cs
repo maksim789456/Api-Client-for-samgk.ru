@@ -1,4 +1,4 @@
-namespace ClientSamgkOutputResponse.Interfaces.Cabs;
+namespace ClientSamgk.Models.Api.Interfaces.Cabs;
 
 public interface IResultOutCab
 {

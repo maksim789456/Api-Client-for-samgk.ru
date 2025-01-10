@@ -1,6 +1,6 @@
-using ClientSamgkOutputResponse.Interfaces.Identity;
+using ClientSamgk.Models.Api.Interfaces.Identity;
 
-namespace ClientSamgkOutputResponse.Interfaces.Groups;
+namespace ClientSamgk.Models.Api.Interfaces.Groups;
 
 public interface IResultOutGroup
 {

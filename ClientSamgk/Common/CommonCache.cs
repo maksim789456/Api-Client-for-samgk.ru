@@ -1,9 +1,9 @@
 using ClientSamgk.Models;
-using ClientSamgkOutputResponse.Enums;
-using ClientSamgkOutputResponse.Interfaces.Cabs;
-using ClientSamgkOutputResponse.Interfaces.Groups;
-using ClientSamgkOutputResponse.Interfaces.Identity;
-using ClientSamgkOutputResponse.Interfaces.Schedule;
+using ClientSamgk.Models.Api.Enums;
+using ClientSamgk.Models.Api.Interfaces.Cabs;
+using ClientSamgk.Models.Api.Interfaces.Groups;
+using ClientSamgk.Models.Api.Interfaces.Identity;
+using ClientSamgk.Models.Api.Interfaces.Schedule;
 
 namespace ClientSamgk.Common;
 

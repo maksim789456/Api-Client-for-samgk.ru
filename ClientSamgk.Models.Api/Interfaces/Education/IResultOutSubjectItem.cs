@@ -1,4 +1,4 @@
-namespace ClientSamgkOutputResponse.Interfaces.Education;
+namespace ClientSamgk.Models.Api.Interfaces.Education;
 
 public interface IResultOutSubjectItem
 {

@@ -1,4 +1,4 @@
-﻿namespace ClientSamgkOutputResponse.Implementation.Schedule;
+﻿namespace ClientSamgk.Models.Api.Implementation.Schedule;
 
 public class DurationLessonDetails
 {

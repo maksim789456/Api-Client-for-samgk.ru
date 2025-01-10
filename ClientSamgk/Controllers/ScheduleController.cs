@@ -1,14 +1,14 @@
 using ClientSamgk.Common;
 using ClientSamgk.Interfaces.Client;
 using ClientSamgk.Models;
+using ClientSamgk.Models.Api.Enums;
+using ClientSamgk.Models.Api.Implementation.Education;
+using ClientSamgk.Models.Api.Implementation.Schedule;
+using ClientSamgk.Models.Api.Interfaces.Cabs;
+using ClientSamgk.Models.Api.Interfaces.Identity;
+using ClientSamgk.Models.Api.Interfaces.Schedule;
 using ClientSamgk.Models.Api.Mfc.Shedules;
 using ClientSamgk.Utils;
-using ClientSamgkOutputResponse.Enums;
-using ClientSamgkOutputResponse.Implementation.Education;
-using ClientSamgkOutputResponse.Implementation.Schedule;
-using ClientSamgkOutputResponse.Interfaces.Cabs;
-using ClientSamgkOutputResponse.Interfaces.Identity;
-using ClientSamgkOutputResponse.Interfaces.Schedule;
 
 namespace ClientSamgk.Controllers;
 

@@ -1,12 +1,12 @@
-using ClientSamgkOutputResponse.Implementation.Education;
-using ClientSamgkOutputResponse.Implementation.Groups;
-using ClientSamgkOutputResponse.Interfaces.Cabs;
-using ClientSamgkOutputResponse.Interfaces.Education;
-using ClientSamgkOutputResponse.Interfaces.Groups;
-using ClientSamgkOutputResponse.Interfaces.Identity;
-using ClientSamgkOutputResponse.Interfaces.Schedule;
+using ClientSamgk.Models.Api.Implementation.Education;
+using ClientSamgk.Models.Api.Implementation.Groups;
+using ClientSamgk.Models.Api.Interfaces.Cabs;
+using ClientSamgk.Models.Api.Interfaces.Education;
+using ClientSamgk.Models.Api.Interfaces.Groups;
+using ClientSamgk.Models.Api.Interfaces.Identity;
+using ClientSamgk.Models.Api.Interfaces.Schedule;
 
-namespace ClientSamgkOutputResponse.Implementation.Schedule;
+namespace ClientSamgk.Models.Api.Implementation.Schedule;
 
 public class ResultOutResultOutLesson : IResultOutLesson
 {

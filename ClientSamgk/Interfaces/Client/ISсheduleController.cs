@@ -1,5 +1,5 @@
 using ClientSamgk.Models;
-using ClientSamgkOutputResponse.Interfaces.Schedule;
+using ClientSamgk.Models.Api.Interfaces.Schedule;
 
 namespace ClientSamgk.Interfaces.Client;
 

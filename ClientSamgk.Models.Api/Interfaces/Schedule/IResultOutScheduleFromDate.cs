@@ -1,6 +1,6 @@
-using ClientSamgkOutputResponse.Enums;
+using ClientSamgk.Models.Api.Enums;
 
-namespace ClientSamgkOutputResponse.Interfaces.Schedule;
+namespace ClientSamgk.Models.Api.Interfaces.Schedule;
 
 public interface IResultOutScheduleFromDate
 {

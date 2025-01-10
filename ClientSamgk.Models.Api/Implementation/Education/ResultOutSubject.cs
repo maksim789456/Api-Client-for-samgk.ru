@@ -1,6 +1,6 @@
-using ClientSamgkOutputResponse.Interfaces.Education;
+using ClientSamgk.Models.Api.Interfaces.Education;
 
-namespace ClientSamgkOutputResponse.Implementation.Education;
+namespace ClientSamgk.Models.Api.Implementation.Education;
 
 public class ResultOutSubject : IResultOutSubjectItem
 {

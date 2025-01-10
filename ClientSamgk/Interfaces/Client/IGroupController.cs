@@ -1,4 +1,4 @@
-using ClientSamgkOutputResponse.Interfaces.Groups;
+using ClientSamgk.Models.Api.Interfaces.Groups;
 
 namespace ClientSamgk.Interfaces.Client;
 

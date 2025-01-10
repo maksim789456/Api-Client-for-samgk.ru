@@ -11,7 +11,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ClientSamgkOutputResponse\ClientSamgkOutputResponse.csproj" />
+      <ProjectReference Include="..\ClientSamgk.Models.Api\ClientSamgk.Models.Api.csproj" />
       <ProjectReference Include="..\ClientSamgk\ClientSamgk.csproj" />
     </ItemGroup>
 

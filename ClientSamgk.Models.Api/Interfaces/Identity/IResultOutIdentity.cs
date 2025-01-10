@@ -1,4 +1,4 @@
-namespace ClientSamgkOutputResponse.Interfaces.Identity;
+namespace ClientSamgk.Models.Api.Interfaces.Identity;
 
 public interface IResultOutIdentity
 {

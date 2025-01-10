@@ -1,5 +1,3 @@
-using ClientSamgkOutputResponse.Interfaces.Cabs;
-
 namespace ClientSamgk.Interfaces.Client;
 
 public interface IMemoryCacheController

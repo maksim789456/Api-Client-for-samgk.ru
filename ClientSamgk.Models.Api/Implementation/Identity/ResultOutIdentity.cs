@@ -1,6 +1,6 @@
-using ClientSamgkOutputResponse.Interfaces.Identity;
+using ClientSamgk.Models.Api.Interfaces.Identity;
 
-namespace ClientSamgkOutputResponse.Implementation.Identity;
+namespace ClientSamgk.Models.Api.Implementation.Identity;
 
 public class ResultOutIdentity : IResultOutIdentity
 {

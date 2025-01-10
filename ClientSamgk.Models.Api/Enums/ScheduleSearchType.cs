@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ClientSamgkOutputResponse.Enums;
+namespace ClientSamgk.Models.Api.Enums;
 
 public enum ScheduleSearchType
 {

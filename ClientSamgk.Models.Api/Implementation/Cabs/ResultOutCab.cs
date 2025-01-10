@@ -1,6 +1,6 @@
-using ClientSamgkOutputResponse.Interfaces.Cabs;
+using ClientSamgk.Models.Api.Interfaces.Cabs;
 
-namespace ClientSamgkOutputResponse.Implementation.Cabs;
+namespace ClientSamgk.Models.Api.Implementation.Cabs;
 
 public class ResultOutCab  : IResultOutCab
 {
