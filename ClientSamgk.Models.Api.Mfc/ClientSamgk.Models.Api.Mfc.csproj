@@ -3,10 +3,12 @@
     <PropertyGroup>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
-        <AssemblyName>ClientSamgkApiModelResponse</AssemblyName>
-        <RootNamespace>ClientSamgkApiModelResponse</RootNamespace>
         <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <IsPackable>false</IsPackable>
+        <PackageId>ClientSamgk.Models.Api.Mfc</PackageId>
+        <Authors>kulagin</Authors>
+        <Company>ClientSamgk.Models.Api.Mfc</Company>
+        <Product>kulagin</Product>
     </PropertyGroup>
 
     <ItemGroup>

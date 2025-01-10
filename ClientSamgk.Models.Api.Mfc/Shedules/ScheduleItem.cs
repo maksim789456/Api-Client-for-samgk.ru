@@ -1,7 +1,7 @@
-using ClientSamgkApiModelResponse.Education;
+using ClientSamgk.Models.Api.Mfc.Education;
 using Newtonsoft.Json;
 
-namespace ClientSamgkApiModelResponse.Shedules;
+namespace ClientSamgk.Models.Api.Mfc.Shedules;
 
 public class ScheduleItem
 {

@@ -1,4 +1,4 @@
-﻿using ClientSamgkApiModelResponse.Shedules;
+﻿using ClientSamgk.Models.Api.Mfc.Shedules;
 using ClientSamgkOutputResponse.Enums;
 using ClientSamgkOutputResponse.Implementation.Schedule;
 

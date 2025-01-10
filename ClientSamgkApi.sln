@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{43
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSamgkOutputResponse", "ClientSamgkOutputResponse\ClientSamgkOutputResponse.csproj", "{AD0BBC6E-FAFD-42C8-8F87-CAE8CD494E40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSamgkApiModelResponce", "ClientSamgkApiModelResponce\ClientSamgkApiModelResponce.csproj", "{B6208F24-2A44-4966-8123-617AE69B07E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSamgk.Models.Api.Mfc", "ClientSamgk.Models.Api.Mfc\ClientSamgk.Models.Api.Mfc.csproj", "{B6208F24-2A44-4966-8123-617AE69B07E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ClientSamgkApiModelResponse.Education;
+namespace ClientSamgk.Models.Api.Mfc.Education;
 
 public class DisciplineInfo
 {

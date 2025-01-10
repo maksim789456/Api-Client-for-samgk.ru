@@ -24,7 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference PrivateAssets="all" Include="..\ClientSamgkApiModelResponce\ClientSamgkApiModelResponce.csproj" />
+      <ProjectReference PrivateAssets="all" Include="..\ClientSamgk.Models.Api.Mfc\ClientSamgk.Models.Api.Mfc.csproj" />
       <ProjectReference PrivateAssets="all" Include="..\ClientSamgkOutputResponse\ClientSamgkOutputResponse.csproj" />
     </ItemGroup>
 

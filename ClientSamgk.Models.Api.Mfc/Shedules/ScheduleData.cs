@@ -1,4 +1,4 @@
-namespace ClientSamgkApiModelResponse.Shedules;
+namespace ClientSamgk.Models.Api.Mfc.Shedules;
 
 public class ScheduleData
 {

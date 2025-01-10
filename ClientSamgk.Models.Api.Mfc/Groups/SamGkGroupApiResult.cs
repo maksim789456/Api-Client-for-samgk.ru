@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ClientSamgkApiModelResponse.Groups;
+namespace ClientSamgk.Models.Api.Mfc.Groups;
 
 public class SamGkGroupApiResult
 {

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace ClientSamgkApiModelResponse.Teachers;
+namespace ClientSamgk.Models.Api.Mfc.Teachers;
 
 public class SamgkTeacherApiResult
 {

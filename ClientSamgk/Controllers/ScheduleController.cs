@@ -1,8 +1,8 @@
 using ClientSamgk.Common;
 using ClientSamgk.Interfaces.Client;
 using ClientSamgk.Models;
+using ClientSamgk.Models.Api.Mfc.Shedules;
 using ClientSamgk.Utils;
-using ClientSamgkApiModelResponse.Shedules;
 using ClientSamgkOutputResponse.Enums;
 using ClientSamgkOutputResponse.Implementation.Education;
 using ClientSamgkOutputResponse.Implementation.Schedule;

@@ -1,7 +1,7 @@
 using ClientSamgk.Models;
+using ClientSamgk.Models.Api.Mfc.Groups;
+using ClientSamgk.Models.Api.Mfc.Teachers;
 using ClientSamgk.Utils;
-using ClientSamgkApiModelResponse.Groups;
-using ClientSamgkApiModelResponse.Teachers;
 using ClientSamgkOutputResponse.Implementation.Cabs;
 using ClientSamgkOutputResponse.Implementation.Groups;
 using ClientSamgkOutputResponse.Implementation.Identity;
