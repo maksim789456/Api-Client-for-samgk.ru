@@ -5,6 +5,7 @@ namespace ClientSamgk.Common;
 
 public sealed class Cache<T> where T : class
 {
+    public IReadOnlyList<LifeTimeMemory<T>> Data => _cache;
     private List<LifeTimeMemory<T>> _cache = [];
 
     public bool TryExtractFromCache(Func<T, bool> predicate, [MaybeNullWhen(false)] out T value)
@@ -41,6 +42,11 @@ public sealed class Cache<T> where T : class
     {
         foreach (var item in _cache.Where(x => DateTime.Now >= x.DateTimeCanBeDeleted).ToList())
             _cache.Remove(item);
+    }
+
+    public void DropCache()
+    {
+        _cache = [];
     }
 
     public bool IsCacheOutdated() =>
