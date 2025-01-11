@@ -9,10 +9,11 @@ using ClientSamgk.Models.Api.Interfaces.Schedule;
 using ClientSamgk.Models.Api.Mfc.Shedules;
 using ClientSamgk.Models.Enums.Schedule;
 using ClientSamgk.Utils;
+using RestSharp;
 
 namespace ClientSamgk.Controllers;
 
-public class ScheduleController : CommonSamgkController, ISсheduleController
+public class ScheduleController(RestClient client) : CommonSamgkController(client), ISсheduleController
 {
     private readonly Uri _scheduleApiEndpointUri = new("https://mfc.samgk.ru/schedule/api/get-rasp");
 
@@ -63,7 +64,7 @@ public class ScheduleController : CommonSamgkController, ISсheduleController
         }
 
         var url = GetScheduleUrl(query.SearchType, date, id);
-        var result = await SendRequest<Dictionary<string, Dictionary<string, List<ScheduleItem>>>>(url, cToken: cToken)
+        var result = await client.SendRequest<Dictionary<string, Dictionary<string, List<ScheduleItem>>>>(url, cToken: cToken)
             .ConfigureAwait(false);
         var newSchedule = ParseScheduleResult(date, result, query);
         if (!query.OverrideCache)

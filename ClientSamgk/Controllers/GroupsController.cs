@@ -1,10 +1,11 @@
 using ClientSamgk.Common;
 using ClientSamgk.Interfaces.Client;
 using ClientSamgk.Models.Api.Interfaces.Groups;
+using RestSharp;
 
 namespace ClientSamgk.Controllers;
 
-public class GroupsController : CommonSamgkController, IGroupController
+public class GroupsController(RestClient client) : CommonSamgkController(client), IGroupController
 {
     public IList<IResultOutGroup> GetGroups()
     {

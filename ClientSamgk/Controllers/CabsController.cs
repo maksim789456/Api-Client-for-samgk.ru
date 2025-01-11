@@ -1,10 +1,11 @@
 using ClientSamgk.Common;
 using ClientSamgk.Interfaces.Client;
 using ClientSamgk.Models.Api.Interfaces.Cabs;
+using RestSharp;
 
 namespace ClientSamgk.Controllers;
 
-public class CabsController : CommonSamgkController, ICabController
+public class CabsController(RestClient client) : CommonSamgkController(client), ICabController
 {
     public IList<IResultOutCab> GetCabs()
     {

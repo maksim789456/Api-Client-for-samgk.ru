@@ -1,10 +1,11 @@
 using ClientSamgk.Common;
 using ClientSamgk.Interfaces.Client;
 using ClientSamgk.Models.Api.Interfaces.Identity;
+using RestSharp;
 
 namespace ClientSamgk.Controllers;
 
-public class AccountController : CommonSamgkController, IIdentityController
+public class AccountController(RestClient client) : CommonSamgkController(client), IIdentityController
 {
     public IList<IResultOutIdentity> GetTeachers()
     {

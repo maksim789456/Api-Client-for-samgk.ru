@@ -6,10 +6,11 @@ using ClientSamgk.Models.Api.Interfaces.Groups;
 using ClientSamgk.Models.Api.Interfaces.Identity;
 using ClientSamgk.Models.Api.Interfaces.Schedule;
 using ClientSamgk.Models.Params.Interfaces.Cache;
+using RestSharp;
 
 namespace ClientSamgk.Controllers;
 
-public class MemoryCacheController : CommonSamgkController, IMemoryCacheController
+public class MemoryCacheController(RestClient client) : CommonSamgkController(client), IMemoryCacheController
 {
     public async Task ClearIfOutDateAsync()
     {
