@@ -15,7 +15,7 @@ public class CabsController(RestClient client) : CommonSamgkController(client), 
     public async Task<IList<IResultOutCab>> GetCabsAsync()
     {
         await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return CabsCache.Select(x=>x.Object).OrderBy(x=> x.Adress).ToList();
+        return CabsCache.Data.Select(x=>x.Object).OrderBy(x=> x.Adress).ToList();
     }
 
     public IResultOutCab? GetCab(string cabName)
@@ -26,13 +26,13 @@ public class CabsController(RestClient client) : CommonSamgkController(client), 
     public async Task<IResultOutCab?> GetCabAsync(string cabName)
     {
         await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return CabsCache.Select(x=>x.Object).FirstOrDefault(x=> x.Adress.Equals(cabName, StringComparison.CurrentCultureIgnoreCase));
+        return CabsCache.Data.Select(x=>x.Object).FirstOrDefault(x=> x.Adress.Equals(cabName, StringComparison.CurrentCultureIgnoreCase));
     }
 
     public async Task<IList<IResultOutCab>> GetCabsAsync(string campusNumber)
     {
         await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return CabsCache.Select(x=>x.Object).Where(x=> x.Campus == campusNumber).ToList();
+        return CabsCache.Data.Select(x=>x.Object).Where(x=> x.Campus == campusNumber).ToList();
     }
 
     public IList<IResultOutCab> GetCabs(string campusNumber)
@@ -48,13 +48,13 @@ public class CabsController(RestClient client) : CommonSamgkController(client), 
     public async Task<IList<string>> GetCampusesAsync()
     {
         await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return CabsCache.Select(x=>x.Object).Select(x => x.Campus).Distinct().ToList();
+        return CabsCache.Data.Select(x=>x.Object).Select(x => x.Campus).Distinct().ToList();
     }
     
     public async Task<IList<IResultOutCab>> GetCabsFromCampusAsync(string campusName)
     {
         await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return CabsCache.Select(x=>x.Object).Where(x => string.Equals(x.Campus, campusName, 
+        return CabsCache.Data.Select(x=>x.Object).Where(x => string.Equals(x.Campus, campusName,
             StringComparison.CurrentCultureIgnoreCase)).ToList();
     }
 

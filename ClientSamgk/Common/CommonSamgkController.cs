@@ -17,7 +17,7 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
 {
     protected async Task UpdateIfCacheIsOutdated(CancellationToken cToken = default)
     {
-        if (!IsRequiredToForceUpdateCache()) return;
+        if (!ForceUpdateCache) return;
 
         await ConfiguringCacheTeachers(cToken).ConfigureAwait(false);
         await ConfiguringCacheCabs(cToken).ConfigureAwait(false);
@@ -32,7 +32,7 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
 
         if (resultApiGroups == null || !resultApiGroups.Any()) return;
 
-        GroupsCache = new List<LifeTimeMemory<IResultOutGroup>>();
+        GroupsCache.DropCache();
 
         var items = resultApiGroups
             .Select(IResultOutGroup (x) => new ResultOutGroup
@@ -45,7 +45,7 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
             .Where(x => x.Course <= 5)
             .ToList();
 
-        foreach (var item in items) SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
+        foreach (var item in items) GroupsCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
     }
 
     private async Task ConfiguringCacheTeachers(CancellationToken cToken = default)
@@ -56,7 +56,7 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
 
         if (resultApiTeachers == null || !resultApiTeachers.Any()) return;
 
-        IdentityCache = new List<LifeTimeMemory<IResultOutIdentity>>();
+        IdentityCache.DropCache();
 
         var items = resultApiTeachers
             .Select(IResultOutIdentity (x) => new ResultOutIdentity
@@ -67,7 +67,7 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
             .OrderBy(x => x.Name)
             .ToList();
 
-        foreach (var item in items) SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
+        foreach (var item in items) IdentityCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
     }
 
     private async Task ConfiguringCacheCabs(CancellationToken cToken = default)
@@ -78,7 +78,7 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
 
         if (resultApiCabs == null || !resultApiCabs.Any()) return;
 
-        CabsCache = new List<LifeTimeMemory<IResultOutCab>>();
+        CabsCache.DropCache();
 
         var items = resultApiCabs
             .Select(IResultOutCab (x) => new ResultOutCab
@@ -88,6 +88,6 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
             .OrderBy(x => x.Adress)
             .ToList();
 
-        foreach (var item in items) SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
+        foreach (var item in items) CabsCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
     }
 }

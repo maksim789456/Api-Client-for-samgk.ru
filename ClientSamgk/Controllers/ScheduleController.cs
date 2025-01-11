@@ -37,9 +37,9 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
         var ids = query.WithAllForType
             ? query.SearchType switch
             {
-                ScheduleSearchType.Employee => IdentityCache.Select(x => x.Object.Id.ToString()).AsEnumerable(),
-                ScheduleSearchType.Group => GroupsCache.Select(x => x.Object.Id.ToString()).ToList(),
-                ScheduleSearchType.Cab => CabsCache.Select(x => x.Object.Adress).ToList(),
+                ScheduleSearchType.Employee => IdentityCache.Data.Select(x => x.Object.Id.ToString()).AsEnumerable(),
+                ScheduleSearchType.Group => GroupsCache.Data.Select(x => x.Object.Id.ToString()).ToList(),
+                ScheduleSearchType.Cab => CabsCache.Data.Select(x => x.Object.Adress).ToList(),
                 _ => throw new ArgumentOutOfRangeException(nameof(query.SearchType))
             }
 #pragma warning disable CS8601 // Possible null reference assignment.
@@ -68,7 +68,7 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
             .ConfigureAwait(false);
         var newSchedule = ParseScheduleResult(date, result, query);
         if (!query.OverrideCache)
-            SaveToCache(newSchedule, newSchedule.Date < DateOnly.FromDateTime(DateTime.Now.Date)
+            ScheduleCache.SaveToCache(newSchedule, newSchedule.Date < DateOnly.FromDateTime(DateTime.Now.Date)
                 ? DefaultLifeTimeInMinutesLong
                 : DefaultLifeTimeInMinutesShort);
 
@@ -144,7 +144,7 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
     private void AddTeachersToLesson(ScheduleItem scheduleItem, ResultOutResultOutLesson lesson)
     {
         foreach (var itemTeacher in scheduleItem.Teacher
-                     .Select(idTeacher => IdentityCache.Select(x => x.Object).FirstOrDefault(x => x.Id == idTeacher))
+                     .Select(idTeacher => IdentityCache.Data.Select(x => x.Object).FirstOrDefault(x => x.Id == idTeacher))
                      .OfType<IResultOutIdentity>())
         {
             lesson.Identity.Add(itemTeacher);
@@ -154,7 +154,7 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
     private void AddCabsToLesson(ScheduleItem scheduleItem, ResultOutResultOutLesson lesson)
     {
         foreach (var itemCab in scheduleItem.Cab
-                     .Select(idCab => CabsCache.Select(x => x.Object).FirstOrDefault(x => x.Adress == idCab))
+                     .Select(idCab => CabsCache.Data.Select(x => x.Object).FirstOrDefault(x => x.Adress == idCab))
                      .OfType<IResultOutCab>())
         {
             lesson.Cabs.Add(itemCab);

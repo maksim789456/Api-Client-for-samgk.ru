@@ -15,7 +15,9 @@ public class MemoryCacheController(RestClient client) : CommonSamgkController(cl
     public async Task ClearIfOutDateAsync()
     {
         await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        ClearCacheIfOutDate();
+        CabsCache.ClearCache();
+        IdentityCache.ClearCache();
+        GroupsCache.ClearCache();
     }
 
     public void ClearIfOutDate()
@@ -25,10 +27,10 @@ public class MemoryCacheController(RestClient client) : CommonSamgkController(cl
 
     public void Clear()
     {
-        CabsCache = new List<LifeTimeMemory<IResultOutCab>>();
-        IdentityCache = new List<LifeTimeMemory<IResultOutIdentity>>();
-        GroupsCache = new List<LifeTimeMemory<IResultOutGroup>>();
-        ScheduleCache = new List<LifeTimeMemory<IResultOutScheduleFromDate>>();
+        CabsCache.DropCache();
+        IdentityCache.DropCache();
+        GroupsCache.DropCache();
+        ScheduleCache.DropCache();
     }
 
     public void SetLifeTime(ICacheOptions options)
