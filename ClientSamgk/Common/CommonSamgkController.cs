@@ -39,13 +39,14 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
             {
                 Id = x.Id,
                 Name = x.Name,
-                Currator = ExtractIdentityFromCache(x.Currator),
+                Currator = IdentityCache.ExtractFromCache(o => o.Id == x.Currator)
             })
             .OrderBy(x => x.Name)
             .Where(x => x.Course <= 5)
             .ToList();
 
-        foreach (var item in items) GroupsCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
+        foreach (var item in items)
+            GroupsCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
     }
 
     private async Task ConfiguringCacheTeachers(CancellationToken cToken = default)
@@ -67,7 +68,8 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
             .OrderBy(x => x.Name)
             .ToList();
 
-        foreach (var item in items) IdentityCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
+        foreach (var item in items)
+            IdentityCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
     }
 
     private async Task ConfiguringCacheCabs(CancellationToken cToken = default)
@@ -88,6 +90,7 @@ public class CommonSamgkController(RestClient restClient) : CommonCache
             .OrderBy(x => x.Adress)
             .ToList();
 
-        foreach (var item in items) CabsCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
+        foreach (var item in items)
+            CabsCache.SaveToCache(item, DefaultLifeTimeInMinutesForCommon);
     }
 }

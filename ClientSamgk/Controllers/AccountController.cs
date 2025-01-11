@@ -31,7 +31,7 @@ public class AccountController(RestClient client) : CommonSamgkController(client
     public async Task<IResultOutIdentity?> GetTeacherAsync(long id)
     {
         await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return ExtractIdentityFromCache(id);
+        return IdentityCache.ExtractFromCache(x => x.Id == id);
     }
 
     public async Task<IResultOutIdentity?> GetTeacherAsync(string teacherName)

@@ -59,12 +59,15 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
     {
         if (!query.OverrideCache)
         {
-            var cachedItem = ExtractFromCache(date, query.SearchType, id);
+            //var cachedItem = ExtractFromCache(date, query.SearchType, id);
+            var cachedItem = ScheduleCache
+                .ExtractFromCache(x => x.Date == date && x.SearchType == query.SearchType && x.IdValue == id);
             if (cachedItem != null) return cachedItem;
         }
 
         var url = GetScheduleUrl(query.SearchType, date, id);
-        var result = await client.SendRequest<Dictionary<string, Dictionary<string, List<ScheduleItem>>>>(url, cToken: cToken)
+        var result = await client
+            .SendRequest<Dictionary<string, Dictionary<string, List<ScheduleItem>>>>(url, cToken: cToken)
             .ConfigureAwait(false);
         var newSchedule = ParseScheduleResult(date, result, query);
         if (!query.OverrideCache)
@@ -126,7 +129,7 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
                             Index = $"{scheduleItem.DisciplineInfo.IndexName}.{scheduleItem.DisciplineInfo.IndexNum}",
                             IsAttestation = scheduleItem.Zachet == 1,
                         },
-                        EducationGroup = ExtractGroupFromCache(scheduleItem.Group)
+                        EducationGroup = GroupsCache.ExtractFromCache(x => x.Id == scheduleItem.Group)
                     };
 
                     AddTeachersToLesson(scheduleItem, lesson);
@@ -144,7 +147,8 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
     private void AddTeachersToLesson(ScheduleItem scheduleItem, ResultOutResultOutLesson lesson)
     {
         foreach (var itemTeacher in scheduleItem.Teacher
-                     .Select(idTeacher => IdentityCache.Data.Select(x => x.Object).FirstOrDefault(x => x.Id == idTeacher))
+                     .Select(idTeacher =>
+                         IdentityCache.Data.Select(x => x.Object).FirstOrDefault(x => x.Id == idTeacher))
                      .OfType<IResultOutIdentity>())
         {
             lesson.Identity.Add(itemTeacher);
