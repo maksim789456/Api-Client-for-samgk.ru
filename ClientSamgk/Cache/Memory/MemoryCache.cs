@@ -1,14 +1,19 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using ClientSamgk.Models;
 
-namespace ClientSamgk.Common;
+namespace ClientSamgk.Cache.Memory;
 
-public sealed class Cache<T> where T : class
+/// <summary>
+/// In memory cache store that manages objects with a specified lifetime
+/// </summary>
+/// <inheritdoc/>
+public sealed class MemoryCache<T> : ICache<T> where T : class
 {
+    /// <inheritdoc/>
     public IReadOnlyList<LifeTimeMemory<T>> Data => _cache;
     private List<LifeTimeMemory<T>> _cache = [];
 
-    public bool TryExtractFromCache(Func<T, bool> predicate, [MaybeNullWhen(false)] out T value)
+    /// <inheritdoc/>
+    public bool TryExtractFromCache(Predicate<T> predicate, [MaybeNullWhen(false)] out T value)
     {
         var obj = ExtractFromCache(predicate);
         if (obj == null)
@@ -21,12 +26,14 @@ public sealed class Cache<T> where T : class
         return true;
     }
 
-    public T? ExtractFromCache(Func<T, bool> predicate)
+    /// <inheritdoc/>
+    public T? ExtractFromCache(Predicate<T> predicate)
     {
-        ClearCache();
+        CleanupCache();
         return _cache.FirstOrDefault(x => predicate(x.Object))?.Object;
     }
 
+    /// <inheritdoc/>
     public void SaveToCache(T item, int lifeTimeInMinutes)
     {
         var cacheItem = new LifeTimeMemory<T>
@@ -38,17 +45,20 @@ public sealed class Cache<T> where T : class
         _cache.Add(cacheItem);
     }
 
-    public void ClearCache()
+    /// <inheritdoc/>
+    public void CleanupCache()
     {
         foreach (var item in _cache.Where(x => DateTime.Now >= x.DateTimeCanBeDeleted).ToList())
             _cache.Remove(item);
     }
 
+    /// <inheritdoc/>
     public void DropCache()
     {
         _cache = [];
     }
 
+    /// <inheritdoc/>
     public bool IsCacheOutdated() =>
         _cache.Any(x => x.DateTimeCanBeDeleted <= DateTime.Now) || _cache.Count == 0;
 }
