@@ -1,19 +1,28 @@
-using ClientSamgk.Common;
+using ClientSamgk.Cache;
 using ClientSamgk.Interfaces.Client;
 using ClientSamgk.Models;
 using ClientSamgk.Models.Api.Implementation.Education;
 using ClientSamgk.Models.Api.Implementation.Schedule;
 using ClientSamgk.Models.Api.Interfaces.Cabs;
+using ClientSamgk.Models.Api.Interfaces.Groups;
 using ClientSamgk.Models.Api.Interfaces.Identity;
 using ClientSamgk.Models.Api.Interfaces.Schedule;
 using ClientSamgk.Models.Api.Mfc.Shedules;
 using ClientSamgk.Models.Enums.Schedule;
+using ClientSamgk.Models.Params.Interfaces.Cache;
 using ClientSamgk.Utils;
 using RestSharp;
 
 namespace ClientSamgk.Controllers;
 
-public class ScheduleController(RestClient client) : CommonSamgkController(client), ISсheduleController
+public class ScheduleController(
+    CacheManager<IResultOutIdentity> teachersCacheManager,
+    CacheManager<IResultOutGroup> groupsCacheManager,
+    CacheManager<IResultOutCab> cabsCacheManager,
+    ICache<IResultOutScheduleFromDate> schedulesCache,
+    ICacheOptions cacheOptions,
+    RestClient client
+) : ISсheduleController
 {
     private readonly Uri _scheduleApiEndpointUri = new("https://mfc.samgk.ru/schedule/api/get-rasp");
 
@@ -26,7 +35,11 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
         CancellationToken cToken = default)
     {
         ArgumentNullException.ThrowIfNull(query);
-        await UpdateIfCacheIsOutdated(cToken).ConfigureAwait(false);
+
+        await teachersCacheManager.EnsureCacheAsync(cToken).ConfigureAwait(false);
+        await groupsCacheManager.EnsureCacheAsync(cToken).ConfigureAwait(false);
+        await cabsCacheManager.EnsureCacheAsync(cToken).ConfigureAwait(false);
+        schedulesCache.CleanupCache();
 
         var dates = query.StartDate.HasValue && query.EndDate.HasValue
             ? DateTimeUtils.GetDateRange(query.StartDate.Value, query.EndDate.Value)
@@ -37,9 +50,10 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
         var ids = query.WithAllForType
             ? query.SearchType switch
             {
-                ScheduleSearchType.Employee => IdentityCache.Data.Select(x => x.Object.Id.ToString()).AsEnumerable(),
-                ScheduleSearchType.Group => GroupsCache.Data.Select(x => x.Object.Id.ToString()).ToList(),
-                ScheduleSearchType.Cab => CabsCache.Data.Select(x => x.Object.Adress).ToList(),
+                ScheduleSearchType.Employee => teachersCacheManager.Data.Select(x => x.Object.Id.ToString())
+                    .AsEnumerable(),
+                ScheduleSearchType.Group => groupsCacheManager.Data.Select(x => x.Object.Id.ToString()).ToList(),
+                ScheduleSearchType.Cab => cabsCacheManager.Data.Select(x => x.Object.Adress).ToList(),
                 _ => throw new ArgumentOutOfRangeException(nameof(query.SearchType))
             }
 #pragma warning disable CS8601 // Possible null reference assignment.
@@ -60,7 +74,7 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
         if (!query.OverrideCache)
         {
             //var cachedItem = ExtractFromCache(date, query.SearchType, id);
-            var cachedItem = ScheduleCache
+            var cachedItem = schedulesCache
                 .ExtractFromCache(x => x.Date == date && x.SearchType == query.SearchType && x.IdValue == id);
             if (cachedItem != null) return cachedItem;
         }
@@ -71,9 +85,10 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
             .ConfigureAwait(false);
         var newSchedule = ParseScheduleResult(date, result, query);
         if (!query.OverrideCache)
-            ScheduleCache.SaveToCache(newSchedule, newSchedule.Date < DateOnly.FromDateTime(DateTime.Now.Date)
-                ? DefaultLifeTimeInMinutesLong
-                : DefaultLifeTimeInMinutesShort);
+            schedulesCache.SaveToCache(newSchedule,
+                newSchedule.Date < DateOnly.FromDateTime(DateTime.Now.Date)
+                    ? cacheOptions.LifeTimeObjectsForLong
+                    : cacheOptions.LifeTimeObjectsForShort);
 
         if (query.Delay > 0)
             await Task.Delay(query.Delay, cToken).ConfigureAwait(false);
@@ -129,7 +144,7 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
                             Index = $"{scheduleItem.DisciplineInfo.IndexName}.{scheduleItem.DisciplineInfo.IndexNum}",
                             IsAttestation = scheduleItem.Zachet == 1,
                         },
-                        EducationGroup = GroupsCache.ExtractFromCache(x => x.Id == scheduleItem.Group)
+                        EducationGroup = groupsCacheManager.Cache.ExtractFromCache(x => x.Id == scheduleItem.Group)
                     };
 
                     AddTeachersToLesson(scheduleItem, lesson);
@@ -148,7 +163,7 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
     {
         foreach (var itemTeacher in scheduleItem.Teacher
                      .Select(idTeacher =>
-                         IdentityCache.Data.Select(x => x.Object).FirstOrDefault(x => x.Id == idTeacher))
+                         teachersCacheManager.Data.Select(x => x.Object).FirstOrDefault(x => x.Id == idTeacher))
                      .OfType<IResultOutIdentity>())
         {
             lesson.Identity.Add(itemTeacher);
@@ -157,8 +172,8 @@ public class ScheduleController(RestClient client) : CommonSamgkController(clien
 
     private void AddCabsToLesson(ScheduleItem scheduleItem, ResultOutResultOutLesson lesson)
     {
-        foreach (var itemCab in scheduleItem.Cab
-                     .Select(idCab => CabsCache.Data.Select(x => x.Object).FirstOrDefault(x => x.Adress == idCab))
+        foreach (var itemCab in scheduleItem.Cab.Select(idCab =>
+                         cabsCacheManager.Data.Select(x => x.Object).FirstOrDefault(x => x.Adress == idCab))
                      .OfType<IResultOutCab>())
         {
             lesson.Cabs.Add(itemCab);

@@ -1,23 +1,30 @@
-using ClientSamgk.Common;
+using ClientSamgk.Cache;
 using ClientSamgk.Interfaces.Client;
-using ClientSamgk.Models;
 using ClientSamgk.Models.Api.Interfaces.Cabs;
 using ClientSamgk.Models.Api.Interfaces.Groups;
 using ClientSamgk.Models.Api.Interfaces.Identity;
 using ClientSamgk.Models.Api.Interfaces.Schedule;
 using ClientSamgk.Models.Params.Interfaces.Cache;
-using RestSharp;
 
 namespace ClientSamgk.Controllers;
 
-public class MemoryCacheController(RestClient client) : CommonSamgkController(client), IMemoryCacheController
+public class MemoryCacheController(
+    CacheManager<IResultOutIdentity> teachersCacheManager,
+    CacheManager<IResultOutGroup> groupsCacheManager,
+    CacheManager<IResultOutCab> cabsCacheManager,
+    ICache<IResultOutScheduleFromDate> schedulesCache,
+    ICacheOptions cacheOptions
+) : IMemoryCacheController
 {
     public async Task ClearIfOutDateAsync()
     {
-        await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        CabsCache.ClearCache();
-        IdentityCache.ClearCache();
-        GroupsCache.ClearCache();
+        await teachersCacheManager.EnsureCacheAsync().ConfigureAwait(false);
+        await groupsCacheManager.EnsureCacheAsync().ConfigureAwait(false);
+        await cabsCacheManager.EnsureCacheAsync().ConfigureAwait(false);
+
+        teachersCacheManager.Cache.CleanupCache();
+        groupsCacheManager.Cache.CleanupCache();
+        cabsCacheManager.Cache.CleanupCache();
     }
 
     public void ClearIfOutDate()
@@ -27,16 +34,16 @@ public class MemoryCacheController(RestClient client) : CommonSamgkController(cl
 
     public void Clear()
     {
-        CabsCache.DropCache();
-        IdentityCache.DropCache();
-        GroupsCache.DropCache();
-        ScheduleCache.DropCache();
+        teachersCacheManager.Cache.DropCache();
+        groupsCacheManager.Cache.DropCache();
+        cabsCacheManager.Cache.DropCache();
+        schedulesCache.DropCache();
     }
 
     public void SetLifeTime(ICacheOptions options)
     {
-        DefaultLifeTimeInMinutesForCommon = options.LifeTimeCommonObjectsObjects;
-        DefaultLifeTimeInMinutesLong = options.LifeTimeObjectsForLong;
-        DefaultLifeTimeInMinutesShort = options.LifeTimeObjectsForShort;
+        cacheOptions.LifeTimeObjectsForCommon = options.LifeTimeObjectsForCommon;
+        cacheOptions.LifeTimeObjectsForLong = options.LifeTimeObjectsForLong;
+        cacheOptions.LifeTimeObjectsForShort = options.LifeTimeObjectsForShort;
     }
 }

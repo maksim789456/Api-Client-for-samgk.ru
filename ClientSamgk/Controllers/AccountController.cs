@@ -1,11 +1,10 @@
-using ClientSamgk.Common;
+using ClientSamgk.Cache;
 using ClientSamgk.Interfaces.Client;
 using ClientSamgk.Models.Api.Interfaces.Identity;
-using RestSharp;
 
 namespace ClientSamgk.Controllers;
 
-public class AccountController(RestClient client) : CommonSamgkController(client), IIdentityController
+public class AccountController(CacheManager<IResultOutIdentity> identityCacheManager) : IIdentityController
 {
     public IList<IResultOutIdentity> GetTeachers()
     {
@@ -14,8 +13,8 @@ public class AccountController(RestClient client) : CommonSamgkController(client
 
     public async Task<IList<IResultOutIdentity>> GetTeachersAsync()
     {
-        await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return IdentityCache.Data.Select(x => x.Object).OrderBy(x => x.Name).ToList();
+        await identityCacheManager.EnsureCacheAsync().ConfigureAwait(false);
+        return identityCacheManager.Data.Select(x => x.Object).OrderBy(x => x.Name).ToList();
     }
 
     public IResultOutIdentity? GetTeacher(string teacherName)
@@ -30,14 +29,14 @@ public class AccountController(RestClient client) : CommonSamgkController(client
 
     public async Task<IResultOutIdentity?> GetTeacherAsync(long id)
     {
-        await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return IdentityCache.ExtractFromCache(x => x.Id == id);
+        await identityCacheManager.EnsureCacheAsync().ConfigureAwait(false);
+        return identityCacheManager.Cache.ExtractFromCache(x => x.Id == id);
     }
 
     public async Task<IResultOutIdentity?> GetTeacherAsync(string teacherName)
     {
-        await UpdateIfCacheIsOutdated().ConfigureAwait(false);
-        return IdentityCache.Data.Select(x => x.Object)
+        await identityCacheManager.EnsureCacheAsync().ConfigureAwait(false);
+        return identityCacheManager.Data.Select(x => x.Object)
             .FirstOrDefault(x => string.Equals(x.Name, teacherName, StringComparison.CurrentCultureIgnoreCase));
     }
 }
