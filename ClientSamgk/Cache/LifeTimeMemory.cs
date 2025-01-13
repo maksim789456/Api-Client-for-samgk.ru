@@ -1,6 +1,6 @@
 ﻿namespace ClientSamgk.Cache;
 
-public class LifeTimeMemory<T>
+public sealed class LifeTimeMemory<T>
 {
     public DateTime DateTimeAdded { get; set; } = DateTime.Now;
     public DateTime DateTimeCanBeDeleted { get; set; }
