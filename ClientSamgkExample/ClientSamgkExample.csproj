@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\ClientSamgk.Models.Api\ClientSamgk.Models.Api.csproj" />
+      <ProjectReference Include="..\ClientSamgk.Models.Params\ClientSamgk.Models.Params.csproj" />
       <ProjectReference Include="..\ClientSamgk\ClientSamgk.csproj" />
     </ItemGroup>
 
