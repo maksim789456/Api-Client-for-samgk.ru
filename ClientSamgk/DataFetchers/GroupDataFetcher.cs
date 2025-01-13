@@ -9,11 +9,13 @@ using RestSharp;
 
 namespace ClientSamgk.DataFetchers;
 
-public class GroupDataFetcher(ICache<IResultOutIdentity> teacherCache, RestClient client)
+public class GroupDataFetcher(CacheManager<IResultOutIdentity> teacherCacheManager, RestClient client)
     : IDataFetcher<IResultOutGroup>
 {
     public async Task<IEnumerable<IResultOutGroup>> FetchAsync(CancellationToken cToken = default)
     {
+        await teacherCacheManager.EnsureCacheAsync(cToken).ConfigureAwait(false);
+
         var resultApiGroups = await client
             .SendRequest<IList<SamGkGroupApiResult>>(new Uri("https://mfc.samgk.ru/api/groups"), cToken: cToken)
             .ConfigureAwait(false);
@@ -26,7 +28,7 @@ public class GroupDataFetcher(ICache<IResultOutIdentity> teacherCache, RestClien
             {
                 Id = x.Id,
                 Name = x.Name,
-                Currator = teacherCache.ExtractFromCache(o => o.Id == x.Currator)
+                Currator = teacherCacheManager.Cache.ExtractFromCache(o => o.Id == x.Currator)
             })
             .OrderBy(x => x.Name)
             .Where(x => x.Course <= 5);

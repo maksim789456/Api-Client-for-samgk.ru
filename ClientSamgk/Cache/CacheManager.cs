@@ -1,5 +1,5 @@
 ﻿using ClientSamgk.Interfaces;
-using ClientSamgk.Models.Params.Implementations.Cache;
+using ClientSamgk.Models.Params.Interfaces.Cache;
 
 namespace ClientSamgk.Cache;
 
@@ -9,9 +9,9 @@ public sealed class CacheManager<T> where T : class
     public readonly ICache<T> Cache;
 
     private readonly IDataFetcher<T> _fetcher;
-    private readonly CacheOptions _cacheOptions;
+    private readonly ICacheOptions _cacheOptions;
 
-    public CacheManager(ICache<T> cache, IDataFetcher<T> fetcher, CacheOptions cacheOptions)
+    public CacheManager(ICache<T> cache, IDataFetcher<T> fetcher, ICacheOptions cacheOptions)
     {
         Cache = cache;
         _fetcher = fetcher;
