@@ -6,7 +6,7 @@ namespace ClientSamgk.Utils;
 public static class RestClientUtils
 {
     public static async Task<RestResponse?> SendRequestAndGetResponse(
-        this RestClient client, Uri url,
+        this IRestClient client, Uri url,
         Method method = Method.Get,
         object? body = null, CancellationToken cToken = default)
     {
@@ -17,7 +17,7 @@ public static class RestClientUtils
     }
 
     public static async Task<T?> SendRequest<T>(
-        this RestClient client, Uri url,
+        this IRestClient client, Uri url,
         Method method = Method.Get,
         object? body = null,
         CancellationToken cToken = default)

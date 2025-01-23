@@ -9,7 +9,7 @@ using RestSharp;
 
 namespace ClientSamgk.DataFetchers;
 
-public class GroupDataFetcher(CacheManager<IResultOutIdentity> teacherCacheManager, RestClient client)
+public class GroupDataFetcher(CacheManager<IResultOutIdentity> teacherCacheManager, IRestClient client)
     : IDataFetcher<IResultOutGroup>
 {
     public async Task<IEnumerable<IResultOutGroup>> FetchAsync(CancellationToken cToken = default)

@@ -7,7 +7,7 @@ using RestSharp;
 
 namespace ClientSamgk.DataFetchers;
 
-public class TeacherDataFetcher(RestClient client) : IDataFetcher<IResultOutIdentity>
+public class TeacherDataFetcher(IRestClient client) : IDataFetcher<IResultOutIdentity>
 {
     public async Task<IEnumerable<IResultOutIdentity>> FetchAsync(CancellationToken cToken = default)
     {

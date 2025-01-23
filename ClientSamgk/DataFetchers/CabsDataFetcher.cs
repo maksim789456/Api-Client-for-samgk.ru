@@ -6,7 +6,7 @@ using RestSharp;
 
 namespace ClientSamgk.DataFetchers;
 
-public class CabsDataFetcher(RestClient client) : IDataFetcher<IResultOutCab>
+public class CabsDataFetcher(IRestClient client) : IDataFetcher<IResultOutCab>
 {
     public async Task<IEnumerable<IResultOutCab>> FetchAsync(CancellationToken cToken = default)
     {
